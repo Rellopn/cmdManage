@@ -1,0 +1,4 @@
+#redis 下载地址
+redisAddress: http://download.redis.io/releases/redis-3.2.8.tar.gz
+# Linux需要装的包
+necessaryPackage: gcc,gcc-c++,kernel-devel,automake,autoconf,libtool,make,wget,tcl,vim,ruby,rubygems,unzip,git
