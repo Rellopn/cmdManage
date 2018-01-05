@@ -94,4 +94,3 @@ class RedisClusterCallBack(AbsCallBack):
         o.read()
         os.remove('redisPerpaerCluster.sh')
         print('完成')
-        return
