@@ -10,14 +10,14 @@ settingInfo:
     password: 123456 #密码
     ip: 192.168.1.20 #ip地址
     sshPort: 22 #ssh端口
-    redisPort: [7001,7002] #启动redis的端口，每一个端口对应一个redis实例
+    redisPort: [7001,7002,7003] #启动redis的端口，每一个端口对应一个redis实例
     workDir: /root
   - id: 2 #唯一标识符
     username: root #登录名
     password: 123456 #密码
     ip: 192.168.1.170 #ip地址
     sshPort: 22 #ssh端口
-    redisPort: [8001,8002] #启动redis的端口，每一个端口对应一个redis实例
+    redisPort: [8001,8002,8003] #启动redis的端口，每一个端口对应一个redis实例
     workDir: /root
 customSetting: #自定义的配置
   - dir: ./

@@ -8,7 +8,6 @@ print 'running on ' + platform.system()
 import yaml
 import threading
 import paramiko
-import click
 
 
 class ProInit():
@@ -67,12 +66,12 @@ class ProInit():
         self.bootstrap = bootstrap
         self.config = config
 
-
         # 状态码
         self.processState = 0
         self.loadDic = self.loadYaml()
 
         self.generateCustSetting = self.setAttrToClusterConfig(self.loadDic['settingYaml']['customSetting'])
+
     def isInit(self):
         """ 判断初始化完成 """
         if self._processState == 1:
@@ -103,9 +102,9 @@ class ProInit():
             return True
         return False
 
-    def setState(self,state):
+    def setState(self, state):
         """ 设置状态 """
-        self.processState=state
+        self.processState = state
 
     def loadYaml(self):
         """ 加载配置到内存 """

@@ -68,6 +68,7 @@ class RedisClusterCmdFactory():
             f.write('#!/bin/bash \n')
             for c in cmd:
                 f.write(c.keys()[0] + '\n')
+            f.write('rm -- "$0"')
             f.close()
             tempParams[index]['cmd'] = cmd
         self.param = tempParams

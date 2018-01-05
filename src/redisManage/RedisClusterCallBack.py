@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import time
+
 from src.AbsCallBack import AbsCallBack
 import os
+
+from src.redisManage.RedisClusterSSHConnect import RedisClusterSSHConnect
 
 
 class RedisClusterCallBack(AbsCallBack):
@@ -32,4 +36,62 @@ class RedisClusterCallBack(AbsCallBack):
                 os.remove(str(port) + '.conf')
             os.remove('redisCluster' + str(oneServer['id']) + '.sh')
         print('清除完成')
+        print('开始运行集群 命令')
+        allSettingInfo = self.config.loadDic['settingYaml']['settingInfo']
+        connectInfo = self.config.loadDic['settingYaml']['settingInfo'][0]
+        customerSetting = self.config.generateCustSetting
+
+        # 拼出来 IP、端口
+        slave = self.config.loadDic['settingYaml']['clusterInfo'][0]['slave']
+        info = ''
+        for everyOne in allSettingInfo:
+            for one in everyOne['redisPort']:
+                info += ' ' + str(everyOne['ip']) + ':' + str(one)
+        info = str(slave) + info
+
+        innerStr = """
+        #!/bin/bash
+        yum install gem -y
+        gem install redis
+        if [ $? -eq 0 ]
+        then
+            echo 'gem install 成功 '
+        else
+            echo 'gem install 失败 '
+            curl -L get.rvm.io | bash -s stable 
+            if [ $? -eq 0 ]
+            then
+                echo 'rvm 成功 '
+                pwd
+            else
+                echo 'rvm 失败 '
+                curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
+                curl -L get.rvm.io | bash -s stable
+            fi
+            rvmSh=`find / -name rvm.sh`
+            source $rvmSh
+            rvm install 2.2.2
+            rvm use 2.3.3
+            gem install redis
+        fi
+         # cd /usr/local/redis/bin && ./redis-trib.rb  create --replicas %s
+                """ % info
+        f = open('redisPerpaerCluster.sh', 'w')
+        f.write(innerStr)
+        f.close()
+
+        rcsc = RedisClusterSSHConnect(connectInfo, customerSetting)
+        rcsc.sshUpload('redisPerpaerCluster.sh', connectInfo['workDir'] + '/redisPerpaerCluster.sh')
+        time.sleep(1)
+        execmd = 'cd ' + connectInfo[
+            'workDir'] + ' && chmod 777 redisPerpaerCluster.sh && ./redisPerpaerCluster.sh'
+        execmd2 = 'cd /usr/local/redis/bin && ./redis-trib.rb  create --replicas %s' % info
+        i, o, e = rcsc.getConnect().exec_command(execmd)
+        o.read()
+        i, o, e = rcsc.getConnect().exec_command(execmd2)
+        i.write('yes\n')
+        i.flush()
+        o.read()
+        os.remove('redisPerpaerCluster.sh')
+        print('完成')
         return
