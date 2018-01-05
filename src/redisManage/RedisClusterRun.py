@@ -13,12 +13,10 @@ class RedisClusterRun(AbsRun):
     """
 
     def __init__(self, config):
-        # 实例化
-        self.Config = None
+        AbsRun.__init__(self, config)
         # 从setting中读取的配置
         self.settingInfo = []
         self.params = None
-        self.Config = config
 
     def initPro(self, callback):
         """ 初始化 配置文件"""

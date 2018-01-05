@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-class RedisClusterCmdFactory():
+from src.AbsCmdFactory import AbsCmdFactory
+
+
+class RedisClusterCmdFactory(AbsCmdFactory):
     """
         生成命令的场，根据参数工厂生成的参数，在此组装成线程执行的命令。
 
@@ -9,9 +12,7 @@ class RedisClusterCmdFactory():
     """
 
     def __init__(self, param, setting, bootSetting):
-        self.param = param
-        self.setting = setting
-        self.bootSetting = bootSetting
+        AbsCmdFactory.__init__(self, param, setting, bootSetting)
 
     # 返回的格式 ：[
     #            {setting:xxxxYaml}

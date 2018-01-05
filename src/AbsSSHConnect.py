@@ -29,8 +29,9 @@ class AbsSSHConnect():
                                              ]
     """
 
-    def __init__(self, settingInfo):
+    def __init__(self, settingInfo, setting):
         self.settingInfo = settingInfo
+        self.setting = setting
 
     def getConnect(self):
         """ 获得ssh端"""
@@ -105,7 +106,7 @@ class AbsSSHConnect():
 
         return
 
-    def upRun(self,fileName,filePathName):
+    def upRun(self, fileName, filePathName):
         self.beforeExeCmd()
         self.__upFile(fileName, filePathName)
         self.afterExeCmd()

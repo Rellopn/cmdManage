@@ -10,6 +10,10 @@ class AbsRun():
 
     __metaclass__ = ABCMeta
 
+    def __init__(self, config):
+        # 实例化
+        self.Config = config
+
     @abstractmethod
     def initPro(self, callback):
         """ 初始化状态 为1"""
@@ -23,4 +27,9 @@ class AbsRun():
     @abstractmethod
     def execSh(self, callback):
         """ 执行完成 状态3"""
+        return
+
+    @abstractmethod
+    def run(self, callback):
+        """ 执行"""
         return

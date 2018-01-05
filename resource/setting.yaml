@@ -1,6 +1,6 @@
 name: remotSettingDemo
 #模式 集群--cluster.
-pattern: cluster #计划支持的模式 单例
+pattern: RedisCluster #计划支持的模式 单例
 clusterInfo: # 集群配置信息
   - slave: 1 #每个redis实例的备份
 settingInfo:

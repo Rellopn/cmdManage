@@ -11,8 +11,7 @@ class RedisClusterSSHConnect(AbsSSHConnect):
     """
 
     def __init__(self, settingInfo, setting):
-        AbsSSHConnect.__init__(self, settingInfo)
-        self.setting = setting
+        AbsSSHConnect.__init__(self, settingInfo, setting)
 
     def beforeExeCmd(self):
         print('线程开始：' + str(self.settingInfo['id']))
