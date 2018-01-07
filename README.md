@@ -5,7 +5,7 @@
 当项目要上测试服务器进行测试，或者项目上线之前要对新的服务器进行配置时。常常要安装一大堆的东西，redis、mysql等等。  
 这些配置经常搞的我们焦头烂额。  
 这个工具可以方便地管理经常用到的命令。  
-只要打开目标服务器的ssh端口，在setting.yaml文件中稍微一配置，即可轻松管理。  
+只要打开目标服务器的ssh端口，在setting.yaml文件中稍微一配置，即可轻松管理。  
 你既可以在工具中自定义命令，也可以使用已经封装好的。下面来看一个配置redis集群的例子。  
 
 1. 在 resource/setting.yaml中修改pattern属性为RedisCluster (表面我们需要一个RedisCluster) 
@@ -28,9 +28,9 @@ mac、和发行版本的linux请确定安装了ssh工具
 │   ├── clusterConfig.text    #rediscluster的配置文件
 │   ├── setting.yaml          #根据需要修改配置文件
 ├── src
-│   ├── AbsCallBack.py #       # 回调函数的抽象类
+│   ├── AbsCallBack.py         # 回调函数的抽象类
 │   ├── AbsCmdFactory.py       # 命令工厂的抽象类
-│   ├── AbsDirectiver.py       # 组装模块的抽象类
+│   ├── AbsDirectiver.py       # 组装模块的抽象类
 │   ├── AbsRun.py              # 实际运行时各个模块如何配合的抽象类
 │   ├── AbsSSHConnect.py       # ssh链接远程服务器的抽象类
 │   ├── DefaultDirectiver.py   # 默认的模块组装方式
