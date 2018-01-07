@@ -17,7 +17,7 @@
 ---
 windows 下请安装[openssl](https://www.openssl.org/)  
 mac、和发行版本的linux请确定安装了ssh工具  
-程序开发测试是在[![Travis](https://img.shields.io/badge/python-2.7.10-brightgreen.svg)]()版本下  
+程序开发测试是在[![Travis](https://img.shields.io/badge/python-2.7.10-brightgreen.svg)]()版本下  
 3.x版本没有经过测试  
 ## 项目结构
 ---
@@ -55,7 +55,7 @@ mac、和发行版本的linux请确定安装了ssh工具
   1. 支持自定义命令
   2. ProInit类setting可以接收多个地址 
   3. 支持从网络获取配置
-- Release 1.0  
+- Release 1.0  
   支持RedisCluster 集群配置
 ## Licence  
 ---
