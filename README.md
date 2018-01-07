@@ -8,7 +8,7 @@
 只要打开目标服务器的ssh端口，在setting.yaml文件中稍微一配置，即可轻松管理。  
 你既可以在工具中自定义命令，也可以使用已经封装好的。下面来看一个配置redis集群的例子。  
 
-1. 在 resource/setting.yaml中修改pattern属性为RedisCluster (表面我们需要一个RedisCluster) 
+1. 在 resource/setting.yaml中修改pattern属性为RedisCluster (表明我们需要一个RedisCluster) 
 2. 修改clusterInfo-slave 为 1 (给每个主节点分配一个从节点)
 3. 然后根据需要修改settingInfo属性。   
 4. 运行 src下的Main.py  
