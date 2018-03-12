@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import AbsCmdFactory
+from src.AbsCmdFactory import AbsCmdFactory
 
 
 class RedisClusterCmdFactory(AbsCmdFactory):

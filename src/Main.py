@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import DefaultDirectiver
-import ProInit
+from src import ProInit
 
 if __name__ == '__main__':
     # 加载配置信息
-    config = ProInit()
+    config = ProInit.ProInit()
     # 匹配模式 运行
-    DefaultDirectiver(config).direction()
+    DefaultDirectiver.DefaultDirectiver(config).direction()
