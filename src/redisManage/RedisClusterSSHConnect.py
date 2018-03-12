@@ -14,7 +14,7 @@ class RedisClusterSSHConnect(AbsSSHConnect):
         AbsSSHConnect.__init__(self, settingInfo, setting)
 
     def beforeExeCmd(self):
-        print('线程开始：' + str(self.settingInfo['id']))
+        print("\033[1;31;40m正在处理的id：" + str(self.settingInfo['id'])+"请耐心等待下\033[0m")
         settingInfo = self.settingInfo
         s = self.getConnect()
         # 进入workdir目录下，新建端口号的文件夹，然后把设置的文件上传上去
@@ -29,11 +29,12 @@ logfile "/root/redis_cluster/%s/%s.log"
 cluster-config-file %s/redis_cluster/%s/nodes-%s.conf
 ''' % (port, port, port, settingInfo['workDir'], port, port)
             thisConf = addStr + self.setting
-
-            f = open(port + '.conf', 'w')
+            # 生成redis启动的配置文件，端口号+id保证唯一性
+            f = open(port + str(self.settingInfo['id']) + '.conf', 'w')
             f.write(thisConf)
             f.close()
-            self.sshUpload(port + '.conf', settingInfo['workDir'] + '/redis_cluster/' + port + '/' + port + '.conf')
+            self.sshUpload(port + str(self.settingInfo['id']) + '.conf',
+                           settingInfo['workDir'] + '/redis_cluster/' + port + '/' + port + '.conf')
         s.close()
         return
 

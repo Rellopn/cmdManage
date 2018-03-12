@@ -5,17 +5,17 @@ clusterInfo: # 集群配置信息
   - slave: 0 #每个redis实例的备份
 settingInfo:
   #远程的主机信息，使用ssh.
-  - id: 1 #唯一标识符
+  - id: sr #唯一标识符
     username: root #登录名
-    password: zRqe3agNEws2Sji #密码
-    ip: 172.21.0.5 #ip地址
+    password: m9xbVsjBhG4tti9Q #密码
+    ip: 139.199.100.146 #ip地址
     sshPort: 22 #ssh端口
-    redisPort: [7001,7002,7003] #启动redis的端口，每一个端口对应一个redis实例
+    redisPort: [7004,7005,7006] #启动redis的端口，每一个端口对应一个redis实例
     workDir: /root
-  - id: 1 #唯一标识符
+  - id: zjb #唯一标识符
     username: root #登录名
     password: zRqe3agNEws2Sji #密码
-    ip: 172.21.0.5 #ip地址
+    ip: 140.143.206.156 #ip地址
     sshPort: 22 #ssh端口
     redisPort: [7001,7002,7003] #启动redis的端口，每一个端口对应一个redis实例
     workDir: /root
