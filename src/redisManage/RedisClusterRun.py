@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from src.AbsRun import AbsRun
-from src.redisManage.RedisClusterCmdFactory import RedisClusterCmdFactory
+import RedisClusterCmdFactory
 from src.ParamFactory import DefaultParamFactory
-from src.redisManage.RedisClusterSSHConnect import RedisClusterSSHConnect
-from src.ThreadingFactory import ThreadingFactory
+import RedisClusterSSHConnect
+import ThreadingFactory, AbsRun
 
 
 class RedisClusterRun(AbsRun):

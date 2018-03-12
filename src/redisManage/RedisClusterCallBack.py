@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import time
 
-from src.AbsCallBack import AbsCallBack
+import AbsCallBack
 import os
 
-from src.redisManage.RedisClusterSSHConnect import RedisClusterSSHConnect
+import RedisClusterSSHConnect
 
 
 class RedisClusterCallBack(AbsCallBack):
@@ -47,6 +47,7 @@ class RedisClusterCallBack(AbsCallBack):
         for everyOne in allSettingInfo:
             for one in everyOne['redisPort']:
                 info += ' ' + str(everyOne['ip']) + ':' + str(one)
+        noslave = info
         info = str(slave) + info
 
         innerStr = """
@@ -71,7 +72,7 @@ class RedisClusterCallBack(AbsCallBack):
             rvmSh=`find / -name rvm.sh`
             source $rvmSh
             rvm install 2.2.2
-            rvm use 2.3.3
+            rvm use 2.2.2
             gem install redis
         fi
          # cd /usr/local/redis/bin && ./redis-trib.rb  create --replicas %s
@@ -85,7 +86,10 @@ class RedisClusterCallBack(AbsCallBack):
         time.sleep(1)
         execmd = 'cd ' + connectInfo[
             'workDir'] + ' && chmod 777 redisPerpaerCluster.sh && ./redisPerpaerCluster.sh'
+
         execmd2 = 'cd /usr/local/redis/bin && ./redis-trib.rb  create --replicas %s' % info
+        if slave == 0:
+            execmd2 = 'cd /usr/local/redis/bin && ./redis-trib.rb  create %s' % info
         i, o, e = rcsc.getConnect().exec_command(execmd)
         o.read()
         i, o, e = rcsc.getConnect().exec_command(execmd2)

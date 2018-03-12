@@ -2,7 +2,7 @@
 from abc import ABCMeta, abstractmethod
 import paramiko
 
-from src.RemoteException import RemoteException
+import RemoteException
 
 
 class AbsSSHConnect():

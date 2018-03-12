@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from src.AbsSSHConnect import AbsSSHConnect
+import AbsSSHConnect
 
 
 class RedisClusterSSHConnect(AbsSSHConnect):

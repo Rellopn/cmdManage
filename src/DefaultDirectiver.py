@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from src.AbsDirectiver import AbsDirectiver
-from src.redisManage.RedisClusterCallBack import RedisClusterCallBack
-from src.redisManage.RedisClusterRun import RedisClusterRun
+from AbsDirectiver import AbsDirectiver
+from redisManage import RedisClusterCallBack
+from redisManage import RedisClusterRun
 
 
 class DefaultDirectiver(AbsDirectiver):
@@ -15,7 +15,9 @@ class DefaultDirectiver(AbsDirectiver):
     def direction(self):
         """ 重写的 详细见 AbsDirectiver-direction"""
         # 获取配置的模式名称
-        pattern = self.config['settingYaml']['pattern']
+        pattern = self.config.loadDic
+        pattern = pattern['settingYaml']
+        pattern = pattern['pattern']
 
         # 初始化 回调类 typeof ABSCallBack
         callback = None

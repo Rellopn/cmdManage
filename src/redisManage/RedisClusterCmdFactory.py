@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from src.AbsCmdFactory import AbsCmdFactory
+import AbsCmdFactory
 
 
 class RedisClusterCmdFactory(AbsCmdFactory):
@@ -38,7 +38,8 @@ class RedisClusterCmdFactory(AbsCmdFactory):
             # 首先进入工作目录
             cmd.append({'cd ' + oneServe['workDir']: '0'})
             # yum 安装必要的包
-            cmd.append({'yum install ' + self.bootSetting['necessaryPackage'] + ' -y': '0'})
+            for i in self.bootSetting['necessaryPackage']:
+                cmd.append({'yum install ' + i + ' -y': '0'})
             # 创建一个下载源码的目录并且进入
             cmd.append({'mkdir redis_source': '0'})
             cmd.append({'cd redis_source': '0'})
