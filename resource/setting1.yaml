@@ -1,0 +1,23 @@
+name: remotSettingDemo
+#模式 集群--cluster.
+pattern: RedisCluster #计划支持的模式 单例
+clusterInfo: # 集群配置信息
+  - slave: 1 #每个redis实例的备份
+settingInfo:
+  #远程的主机信息，每一个代表一个主机。
+  - id: Host1 #唯一标识符
+    username: root #登录名
+    password: 123456 #密码
+    ip: 192.168.1.20 #ip地址
+    sshPort: 22 #ssh端口
+    redisPort: [7001,7002,7003] #启动redis的端口，每一个端口对应一个redis实例
+    workDir: /root #在哪个目录下工作
+  - id: Host2 #唯一标识符
+    username: root #登录名
+    password: 123456 #密码
+    ip: 192.168.1.170 #ip地址
+    sshPort: 22 #ssh端口
+    redisPort: [8001,8002,8003] #启动redis的端口，每一个端口对应一个redis实例
+    workDir: /root #在哪个目录下工作
+customSetting: #自定义的配置
+  - dir: ./ #如果配置文件中有此属性，则修改为此处定义的，否则添加。

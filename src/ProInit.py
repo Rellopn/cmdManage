@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
-import sys
 import platform
-import re
-from time import sleep
 
 print 'running on ' + platform.system()
 import yaml
-import threading
-import paramiko
 
 
 class ProInit():

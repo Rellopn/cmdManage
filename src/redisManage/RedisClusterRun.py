@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from src.AbsRun import AbsRun
-from src.redisManage.RedisClusterCmdFactory import RedisClusterCmdFactory
+import RedisClusterCmdFactory
 from src.ParamFactory import DefaultParamFactory
-from src.redisManage.RedisClusterSSHConnect import RedisClusterSSHConnect
+import RedisClusterSSHConnect
 from src.ThreadingFactory import ThreadingFactory
+from src.AbsRun import AbsRun
 
 
 class RedisClusterRun(AbsRun):
@@ -35,7 +35,7 @@ class RedisClusterRun(AbsRun):
         dpf = DefaultParamFactory(settingYaml['settingInfo'], '')
 
         self.settingInfo = dpf.getClusterRedisInstallParam()
-        dcf = RedisClusterCmdFactory(self.settingInfo, '', self.Config.loadDic['bootstrapYaml'])
+        dcf = RedisClusterCmdFactory.RedisClusterCmdFactory(self.settingInfo, '', self.Config.loadDic['bootstrapYaml'])
 
         dcf.getYumRedisClusterCmd()
         self.params = dcf.param
@@ -43,7 +43,7 @@ class RedisClusterRun(AbsRun):
         self.Config.setState(2)
 
     def childThread(self, cmd, upfileName, upPath):
-        RedisClusterSSHConnect(cmd, self.Config.generateCustSetting).upRun(upfileName, upPath)
+        RedisClusterSSHConnect.RedisClusterSSHConnect(cmd, self.Config.generateCustSetting).upRun(upfileName, upPath)
 
     def execSh(self, callback):
         # 之前调用回调函数
