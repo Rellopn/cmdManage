@@ -27,10 +27,10 @@ class DefaultDirectiver(AbsDirectiver):
         # 具体调用
         if pattern == 'RedisCluster':
             # 实例化 RedisCluster回调类
-            callback = RedisClusterCallBack.RedisClusterCallBack(self.config)
-            # 实例化 RedisCluster运行类
-            run = RedisClusterRun.RedisClusterRun(self.config)
+            # callback = RedisClusterCallBack.RedisClusterCallBack(self.config)
+            # # 实例化 RedisCluster运行类
+            # run = RedisClusterRun.RedisClusterRun(self.config)
             pass
 
         # 有相同的父类，无需关心。直接传入回调类，开始运行
-        run.run(callback)
+        # run.run(callback)
