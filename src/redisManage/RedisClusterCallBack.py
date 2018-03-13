@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 
-from src.AbsCallBack import AbsCallBack
+from AbsCallBack import AbsCallBack
 import os
 
 import RedisClusterSSHConnect

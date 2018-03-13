@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import DefaultDirectiver
-from src import ProInit
+import ProInit
 
 if __name__ == '__main__':
     # 加载配置信息
