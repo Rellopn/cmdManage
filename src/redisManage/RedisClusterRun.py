@@ -53,12 +53,13 @@ class RedisClusterRun(AbsRun):
         for cmd in cmds:
             upfileName = 'redisCluster' + str(cmd['id']) + '.sh'
             upPath = cmd['workDir'] + '/redisCluster' + str(cmd['id']) + '.sh'
-            t = ThreadingFactory().getThread(self.childThread, (cmd, upfileName, upPath))
+            # t = ThreadingFactory().getThread(self.childThread, (cmd, upfileName, upPath))
+            self.childThread(cmd, upfileName, upPath)
             # threading.Thread(target=self.childThread,args=(cmd, upfileName, upPath))
-            threads.append(t)
-        for thread in threads:
-            thread.start()
-            thread.join()
+            # threads.append(t)
+        # for thread in threads:
+        #     thread.start()
+        #     thread.join()
         callback.afterExeSh()
 
     def run(self, callback):
