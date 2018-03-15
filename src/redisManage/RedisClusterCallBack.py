@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import time
 
 from AbsCallBack import AbsCallBack
 import os
@@ -17,26 +16,26 @@ class RedisClusterCallBack(AbsCallBack):
         AbsCallBack.__init__(self, config)
 
     def beforeInit(self):
-        print('回调函数调用:beforeInit()')
+        print('call callback function:beforeInit()')
         return
 
     def beforeReadyTiExeSh(self):
-        print('回调函数调用:beforeReadyTiExeSh()')
+        print('call callback function:beforeReadyTiExeSh()')
         return
 
     def beforeExeSh(self):
-        print('回调函数调用:beforeExeSh()')
+        print('call callback function:beforeExeSh()')
         return
 
     def afterExeSh(self):
-        print('回调函数调用:afterExeSh()')
-        print('清除生成的文件')
+        print('call callback function:afterExeSh()')
+        print('clear generate files')
         for oneServer in self.config.loadDic['settingYaml']['settingInfo']:
             for port in oneServer['redisPort']:
                 os.remove(str(port)+str(oneServer['id']) + '.conf')
             os.remove('redisCluster' + str(oneServer['id']) + '.sh')
-        print('清除完成')
-        print('开始运行集群 命令')
+        print('clear done')
+        print('strat run build cluster commend')
         allSettingInfo = self.config.loadDic['settingYaml']['settingInfo']
         connectInfo = self.config.loadDic['settingYaml']['settingInfo'][0]
         customerSetting = self.config.generateCustSetting
@@ -50,53 +49,52 @@ class RedisClusterCallBack(AbsCallBack):
         noslave = info
         info = str(slave) + info
 
-        innerStr = """
-        #!/bin/bash
-        yum install gem -y
-        gem install redis
-        if [ $? -eq 0 ]
-        then
-            echo 'gem install 成功 开始创建集群'
-        else
-            echo 'gem install 失败 ，接下来将尝试安装rvm'
-            curl -L get.rvm.io | bash -s stable 
-            if [ $? -eq 0 ]
-            then
-                echo 'rvm 成功，下面设置 rvm版本，2.2.2，安装gem redis '
-                pwd
-            else
-                echo 'rvm 失败 ，尝试导入gpg2，再失败就炸了。'
-                curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
-                curl -L get.rvm.io | bash -s stable
-            fi
-            rvmSh=`find / -name rvm.sh`
-            source $rvmSh
-            rvm install 2.2.2
-            rvm use 2.2.2
-            gem install redis
-        fi
-         # cd /usr/local/redis/bin && ./redis-trib.rb  create --replicas %s
-                """ % info
+        innerStr = """#!/bin/bash
+yum install -y gem
+gem install redis
+if [ $? -eq 0 ]
+then
+    echo ''
+else
+    echo ''
+    curl -L get.rvm.io | bash -s stable 
+    if [ $? -eq 0 ]
+    then
+        echo 'rvm'
+        pwd
+    else
+        echo 'rvm'
+        curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
+        curl -L get.rvm.io | bash -s stable
+    fi
+    rvmSh=`find / -name rvm.sh`
+    source $rvmSh
+    rvm install 2.2.2
+    rvm use 2.2.2
+    gem install redis
+fi
+# cd /usr/local/redis/bin && ./redis-trib.rb  create --replicas""" 
         f = open('redisPerpaerCluster.sh', 'w')
         f.write(innerStr)
         f.close()
 
         rcsc = RedisClusterSSHConnect.RedisClusterSSHConnect(connectInfo, customerSetting)
         rcsc.sshUpload('redisPerpaerCluster.sh', connectInfo['workDir'] + '/redisPerpaerCluster.sh')
+        # 如果是windows平台，需要转换编码
         execmd = 'cd ' + connectInfo[
-            'workDir'] + ' && chmod 777 redisPerpaerCluster.sh && ./redisPerpaerCluster.sh'
+            'workDir'] + ' && chmod 777 redisPerpaerCluster.sh && dos2unix redisPerpaerCluster.sh && ./redisPerpaerCluster.sh'
 
         execmd2 = 'cd /usr/local/redis/bin && ./redis-trib.rb  create --replicas %s' % info
         if slave == 0:
             execmd2 = 'cd /usr/local/redis/bin && ./redis-trib.rb  create %s' % noslave
         i, o, e = rcsc.getConnect().exec_command(execmd)
-        print("\033[1;31;40m下面的这一步可能需要点时间,如果10分钟没动，就停下重试一遍。\033[0m")
-        print("远程检测ruby 版本")
+        print("maby the next step speed long time,if across 10 minuite,retry.")
+        print("remote check ruby version")
         print(o.read())
-        print("ruby 安装完成")
+        print("ruby installed")
         i, o, e = rcsc.getConnect().exec_command(execmd2)
         i.write('yes\n')
         i.flush()
         print(o.read())
         os.remove('redisPerpaerCluster.sh')
-        print('完成')
+        print('complate,enjoy it!')
