@@ -1,0 +1,14 @@
+#mysql 安装的配置
+
+pattern: mysqlInstall
+settingInfo:
+  #远程的主机信息，使用ssh.
+  - id: 190 #唯一标识符
+    username: root #登录名
+    password: UATMYSQL@maryun.net #密码
+    ip: 192.168.1.190  #ip地址
+    sshPort: 22 #ssh端口
+    mysqlPort: [3360] #启动redis的端口，每一个端口对应一个redis实例
+    workDir: /root
+customSetting: #自定义的配置
+  - dir: ./
