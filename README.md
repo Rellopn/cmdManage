@@ -1,5 +1,11 @@
 # cmdManage--服务器命令管理工具  
-[![Travis](https://img.shields.io/badge/release-1.0-brightgreen.svg)]()  [![Travis](https://img.shields.io/badge/build-passing-brightgreen.svg)]() [![Travis](https://img.shields.io/badge/developing-1.1-brightgreen.svg)]() [![Travis](https://img.shields.io/badge/python-2.7.10-brightgreen.svg)]()  
+[![Travis](https://img.shields.io/badge/release-1.0-brightgreen.svg)]()  [![Travis](https://img.shields.io/badge/build-passing-brightgreen.svg)]() [![Travis](https://img.shields.io/badge/developing-1.1-brightgreen.svg)]() [![Travis](https://img.shields.io/badge/python-2.7.10-brightgreen.svg)]()   
+
+## 运行 
+---
+1. pip install -r requirement.pip  
+2. 进入resurce目录设置setting.yaml  
+3. 进入src目录运行 python Main.py  
 ## 功能描述 
 ---
 当项目要上测试服务器进行测试，或者项目上线之前要对新的服务器进行配置时。常常要安装一大堆的东西，redis、mysql等等。  
